@@ -1,0 +1,229 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<Dialog id="diaRiep" title="{= 'Riepilogo: ' + parseInt(${/ordine}) + ' / ' + parseInt(${/operazione})}" class="sapUiContentPadding"
+		contentHeight="100%" contentWidth="100%" initialFocus="myRiepContainer">
+		<Page id="master" enableScrolling="true">
+			<content>
+				<TabContainer items="{ path: '/TableId' }" id="myRiepContainer" showAddNewButton="false" class="sapUiResponsiveContentPadding"
+					addNewButtonPress="addNewButtonPressHandler" itemSelect="onItemRipSelected">
+					<items >
+						<TabContainerItem name="{name}" modified="false">
+							<content>
+								<VBox fitContainer="true" visible="{= ${name} === 'Versamenti'}" width="100%">
+									<l:FixFlex class="fixFlexFixedSize">
+										<l:fixContent>
+											<ScrollContainer horizontal="true" vertical="true" focusable="true">
+												<Table selectionChange="onPress" mode="SingleSelectMaster" alternateRowColors="true" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders"
+													items="{ path: 'value', sorter: { path: 'data' } , templateShareable:false}">
+													<columns>
+														<Column width="10rem">
+															<Label text="Id bancale"/>
+														</Column>
+														<Column width="5rem">
+															<Label text="Dt.creazione"/>
+														</Column>
+														<Column width="6rem">
+															<Label text="Articolo"/>
+														</Column>
+														<Column width="15rem">
+															<Label text="Descrizione"/>
+														</Column>
+														<Column width="5rem">
+															<Label text="Q.tà versata"/>
+														</Column>
+														<Column width="5rem">
+															<Label text="Completo"/>
+														</Column>
+													</columns>
+													<items>
+														<ColumnListItem>
+															<cells>
+																<Text text="{idBancale}" wrapping="false"/>
+																<Text text="{dataCreazione}" wrapping="false"/>
+																<Text text="{articolo}" wrapping="false"/>
+																<Text text="{descrizioneArticolo}" wrapping="false"/>
+																<Text text="{= parseFloat(${quantitaVersata}).toFixed(2)}" wrapping="false"/>
+																<Text text="{completo}" wrapping="false"/>
+															</cells>
+														</ColumnListItem>
+													</items>
+												</Table>
+											</ScrollContainer>
+										</l:fixContent>
+									</l:FixFlex>
+								</VBox>
+								<VBox fitContainer="true" visible="{= ${name} === 'Componenti'}" width="100%">
+									<l:FixFlex class="fixFlexFixedSize">
+										<l:fixContent>
+											<ScrollContainer height="100%" vertical="true">
+												<Table selectionChange="onPress" mode="SingleSelectMaster" alternateRowColors="true" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders"
+													items="{ path: 'value', templateShareable:false}">
+													<columns>
+														<Column width="7rem">
+															<Label text="Componente"/>
+														</Column>
+														<Column width="15rem">
+															<Label text="Descrizione"/>
+														</Column>
+														<Column width="5rem">
+															<Label text="Cons. residuo"/>
+														</Column>
+														<Column width="3rem">
+															<Label text="UM"/>
+														</Column>
+														<Column width="6rem">
+															<Label text="Lotto"/>
+														</Column>
+														<Column width="5rem">
+															<Label text="Cons. conf."/>
+														</Column>
+														<Column width="5rem">
+															<Label text="Scarto"/>
+														</Column>
+													</columns>
+													<items>
+														<ColumnListItem>
+															<cells>
+																<Text text="{componente}" wrapping="false"/>
+																<Text text="{descrizioneComponente}" wrapping="false"/>
+																<Text text="{= parseFloat(${consumoResiduo}).toFixed(2)}" wrapping="false"/>
+																<Text text="{um}"/>
+																<Text text="{lotto}" wrapping="false"/>
+																<Text text="{= parseFloat(${consumoConfermato}).toFixed(2)}" wrapping="false"/>
+																<Text text="{= parseFloat(${scarto}).toFixed(2)}" wrapping="false"/>
+															</cells>
+														</ColumnListItem>
+													</items>
+												</Table>
+											</ScrollContainer>
+										</l:fixContent>
+									</l:FixFlex>
+								</VBox>
+								<VBox fitContainer="true" visible="{= ${name} === 'Sospensioni'}" width="100%">
+									<l:FixFlex class="fixFlexFixedSize">
+										<l:fixContent>
+											<ScrollContainer horizontal="true" vertical="true" focusable="true">
+												<Panel width="100%">
+													<Table selectionChange="onPress" mode="SingleSelectMaster" alternateRowColors="true" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders"
+														items="{path: 'value', sorter: {path: 'data'}, templateShareable: true}">
+														<columns>
+															<Column width="6rem">
+																<Label text="Dt.inizio"/>
+															</Column>
+															<Column width="5rem">
+																<Label text="Ora inizio"/>
+															</Column>
+															<Column width="6rem">
+																<Label text="Dt.fine"/>
+															</Column>
+															<Column width="5rem">
+																<Label text="Ora fine"/>
+															</Column>
+															<Column width="10rem">
+																<Label text="Macchinario"/>
+															</Column>
+															<Column width="10rem">
+																<Label text="Causale"/>
+															</Column>
+															<Column width="10rem">
+																<Label text="Nota causale"/>
+															</Column>
+															<Column width="10rem">
+																<Label text="Azione"/>
+															</Column>
+															<Column width="10rem">
+																<Label text="Nota azione"/>
+															</Column>
+															<Column width="5rem"/>
+														</columns>
+														<items>
+															<ColumnListItem>
+																<cells>
+																	<Input editable="false" value="{dataInizio}"/>
+																	<Input editable="false" value="{oraInizio}"/>
+																	<Input editable="false" value="{dataFine}"/>
+																	<Input editable="false" value="{oraFine}"/>
+																	<Input editable="false" value="{macchinario}"/>
+																	<Select showSecondaryValues="true" items="{path: '/causali', sorter: {path: 'descrizione'}, templateShareable: true}"
+																		selectedKey="{causale}" editable="{isEditing}" change="onCausaleChange" forceSelection="false"
+																		valueState="{= ${causale} === 'SIOT' ? 'Warning' : 'None'}" valueStateText="Modificare causale SIOT">
+																		<core:ListItem key="{chiave}" text="{descrizione}" additionalText="{chiave}"/>
+																	</Select>
+																	<TextArea value="{noteCausali}" editable="{= ${isEditing} &amp;&amp; !!${causale}}"/>
+																	<Select showSecondaryValues="true" items="{path: 'azioni', sorter: {path: 'descrizione'}, templateShareable: true}" selectedKey="{azione}"
+																		editable="{= ${isEditing} &amp;&amp; !!${causale}}" forceSelection="false">
+																		<core:ListItem key="{chiave}" text="{descrizione}" additionalText="{chiave}"/>
+																	</Select>
+																	<TextArea value="{noteAzioni}" editable="{= ${isEditing} &amp;&amp; !!${azione}}"/>
+																	<FlexBox justifyContent="SpaceBetween">
+																		<Button icon="sap-icon://edit" visible="{= !${isEditing}}" press="onEditSospensionePress" class="button"/>
+																		<Button icon="sap-icon://decline" visible="{isEditing}" press="onCancelSospensionePress" type="Reject"/>
+																		<Button icon="sap-icon://save" visible="{isEditing}" press="onSaveSospensionePress" type="Accept"/>
+																	</FlexBox>
+																</cells>
+															</ColumnListItem>
+														</items>
+													</Table>
+												</Panel>
+											</ScrollContainer>
+										</l:fixContent>
+									</l:FixFlex>
+								</VBox>
+								<VBox fitContainer="true" visible="{= ${name} === 'Sessioni'}" height="35%" width="100%">
+									<l:FixFlex class="fixFlexFixedSize">
+										<l:fixContent>
+											<ScrollContainer horizontal="true" vertical="true" focusable="true">
+												<Panel width="100%">
+													<Table selectionChange="onPress" mode="SingleSelectMaster" alternateRowColors="true" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders"
+														items="{ path: 'value', sorter: { path: 'data' } , templateShareable:false}">
+														<columns>
+															<Column width="5rem">
+																<Label text="Data"/>
+															</Column>
+															<Column width="5rem">
+																<Label text="Ora In."/>
+															</Column>
+															<Column width="5rem">
+																<Label text="Ora Vers."/>
+															</Column>
+															<Column width="10rem">
+																<Label text="Operatore"/>
+															</Column>
+															<Column width="5rem">
+																<Label text="Q.tà Vers."/>
+															</Column>
+															<Column width="10rem">
+																<Label text="Macchinario"/>
+															</Column>
+														</columns>
+														<items>
+															<ColumnListItem>
+																<cells>
+																	<Text text="{data}" wrapping="false"/>
+																	<Text text="{oraInizioOperazione}" wrapping="false"/>
+																	<Text text="{oraVersamento}" wrapping="false"/>
+																	<Text text="{operatore}" wrapping="false"/>
+																	<Text text="{= parseFloat(${quantitaVersata}).toFixed(2)}" wrapping="false"/>
+																	<Text text="{macchinario}" wrapping="false"/>
+																</cells>
+															</ColumnListItem>
+														</items>
+													</Table>
+												</Panel>
+											</ScrollContainer>
+										</l:fixContent>
+									</l:FixFlex>
+								</VBox>
+							</content>
+						</TabContainerItem>
+					</items>
+				</TabContainer>
+			</content>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button text="Chiudi" press="onCancelRiepilogo" class="button"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition>

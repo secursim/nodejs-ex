@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+	<edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+		<Schema Namespace="morocolor_dev.morocolor_dev_odata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+			xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="MacchinariType">
+				<Key><PropertyRef Name="IPMACCHINA"/><PropertyRef Name="IMPIANTO"/></Key><Property Name="IPMACCHINA" Type="Edm.String" Nullable="false" MaxLength="15"/><Property Name="CENTRODILAVORO" Type="Edm.String" MaxLength="10"/><Property Name="REPARTO" Type="Edm.String" MaxLength="80"/><Property Name="IOT" Type="Edm.Byte"/><Property Name="GRUPPOMACCHINA" Type="Edm.String" MaxLength="8"/><Property Name="REFRESHCONTAPEZZI" Type="Edm.Int32"/><Property Name="TEMPOPERFERMO" Type="Edm.Int32"/><Property Name="MINPEZZIPERRIPARTENZA" Type="Edm.Int32"/><Property Name="STATOMACCHINA" Type="Edm.String" MaxLength="8"/><Property Name="IMPIANTO" Type="Edm.String" Nullable="false" MaxLength="40"/></EntityType>
+			<EntityType Name="OperatoriType">
+				<Key><PropertyRef Name="CID"/></Key><Property Name="CID" Type="Edm.String" Nullable="false" MaxLength="20"/><Property Name="NOME" Type="Edm.String" MaxLength="40"/><Property Name="COGNOME" Type="Edm.String" MaxLength="40"/><Property Name="EMAIL" Type="Edm.String" MaxLength="40"/><Property Name="TEAMLEADER" Type="Edm.Byte"/><Property Name="MANSIONE" Type="Edm.String" MaxLength="8"/></EntityType>
+			<EntityType Name="OrdiniType">
+				<Key><PropertyRef Name="CENTRODILAVORO"/><PropertyRef Name="ORDINEDIPRODUZIONE"/><PropertyRef Name="OPERAZIONE"/></Key><Property Name="CENTRODILAVORO" Type="Edm.String" Nullable="false" MaxLength="12"/><Property Name="ORDINEDIPRODUZIONE" Type="Edm.String" Nullable="false" MaxLength="12"/><Property Name="OPERAZIONE" Type="Edm.String" Nullable="false" MaxLength="4"/><Property Name="OPERAZIONEFINALE" Type="Edm.Byte"/><Property Name="DESCRIZIONEOPERAZIONE" Type="Edm.String" MaxLength="40"/><Property Name="OPERAZIONESUCCESSIVA" Type="Edm.String" MaxLength="4"/><Property Name="ORAINIZIORICHIESTA" Type="Edm.Time"/><Property Name="ORAFINERICHIESTA" Type="Edm.Time"/><Property Name="ARTICOLO" Type="Edm.String" MaxLength="40"/><Property Name="DESCRIZIONEARTICOLO" Type="Edm.String" MaxLength="40"/><Property Name="QUANTITARICHIESTA" Type="Edm.Int32"/><Property Name="QUANTITAIOT" Type="Edm.Int32"/><Property Name="SCARTOPRODOTTIFINITI" Type="Edm.Int32"/><Property Name="LOTTO" Type="Edm.String" MaxLength="10"/><Property Name="ALLINEATOS4" Type="Edm.Byte"/><Property Name="DATAINIZIOEFFETTIVA" Type="Edm.DateTime"/><Property Name="ORAINIZIOEFFETTIVA" Type="Edm.Time"/><Property Name="ORAFINEEFFETTIVA" Type="Edm.Time"/><Property Name="STATOOPERAZIONE" Type="Edm.String" MaxLength="8"/><Property Name="QUANTITAPRODOTTIFINITI" Type="Edm.Int32"/><Property Name="CHIAVECOMANDO" Type="Edm.String" MaxLength="8"/><Property Name="COMPLETATO" Type="Edm.Byte"/><Property Name="DATAINIZIORICHIESTA" Type="Edm.DateTime"/><Property Name="DATAFINERICHIESTA" Type="Edm.DateTime"/><Property Name="QUANTRICHPRODOTTIFINITI" Type="Edm.Int32"/><Property Name="DATAFINEEFFETTIVA" Type="Edm.DateTime"/></EntityType>
+			<EntityType Name="ComponentiType">
+				<Key><PropertyRef Name="ORDINEDIPRODUZIONE"/><PropertyRef Name="OPERAZIONE"/><PropertyRef Name="COMPONENTE"/><PropertyRef Name="PROGRESSIVO"/></Key><Property Name="ORDINEDIPRODUZIONE" Type="Edm.String" Nullable="false" MaxLength="12"/><Property Name="OPERAZIONE" Type="Edm.String" Nullable="false" MaxLength="4"/><Property Name="COMPONENTE" Type="Edm.String" Nullable="false" MaxLength="40"/><Property Name="CONSUMOTEORICO" Type="Edm.Decimal" Precision="9" Scale="2"/><Property Name="CONSUMOCONFERMATO" Type="Edm.Decimal" Precision="9" Scale="2"/><Property Name="SCARTO" Type="Edm.Decimal" Precision="9" Scale="2"/><Property Name="UM" Type="Edm.String" MaxLength="8"/><Property Name="ALLINEATOS4" Type="Edm.Byte"/><Property Name="PROGRESSIVO" Type="Edm.Int32" Nullable="false"/></EntityType>
+			<EntityType Name="LottiType">
+				<Key><PropertyRef Name="ORDINEDIPRODUZIONE"/><PropertyRef Name="OPERAZIONE"/><PropertyRef Name="COMPONENTE"/><PropertyRef Name="LOTTO"/><PropertyRef Name="PROGRESSIVO"/></Key><Property Name="ORDINEDIPRODUZIONE" Type="Edm.String" Nullable="false" MaxLength="12"/><Property Name="OPERAZIONE" Type="Edm.String" Nullable="false" MaxLength="4"/><Property Name="COMPONENTE" Type="Edm.String" Nullable="false" MaxLength="40"/><Property Name="LOTTO" Type="Edm.String" Nullable="false" MaxLength="10"/><Property Name="QUANTITACONSUMATA" Type="Edm.Decimal" Precision="9" Scale="2"/><Property Name="QUANTITASCARTATA" Type="Edm.Decimal" Precision="9" Scale="2"/><Property Name="UM" Type="Edm.String" MaxLength="8"/><Property Name="ALLINEATOS4" Type="Edm.Byte"/><Property Name="PROGRESSIVO" Type="Edm.Int32" Nullable="false"/></EntityType>
+			<EntityType Name="SessioniOperatoriType">
+				<Key><PropertyRef Name="ORDINEDIPRODUZIONE"/><PropertyRef Name="OPERAZIONE"/><PropertyRef Name="IDSESSIONE"/><PropertyRef Name="OPERATORE"/><PropertyRef Name="OPERATORESINGOLO"/><PropertyRef Name="PROGRESSIVO"/></Key><Property Name="ORDINEDIPRODUZIONE" Type="Edm.String" Nullable="false" MaxLength="12"/><Property Name="OPERAZIONE" Type="Edm.String" Nullable="false" MaxLength="4"/><Property Name="IDSESSIONE" Type="Edm.String" Nullable="false" MaxLength="8"/><Property Name="DATA" Type="Edm.DateTime"/><Property Name="ORAINIZIO" Type="Edm.Time"/><Property Name="ORAFINE" Type="Edm.Time"/><Property Name="ALLINEATOS4" Type="Edm.Byte"/><Property Name="NUMPEZZIVERSATI" Type="Edm.Decimal" Precision="9" Scale="2"/><Property Name="OPERATORE" Type="Edm.String" Nullable="false" MaxLength="20"/><Property Name="OPERATORESINGOLO" Type="Edm.String" Nullable="false" MaxLength="20"/><Property Name="PROGRESSIVO" Type="Edm.Int32" Nullable="false"/></EntityType>
+			<EntityType Name="TempiType">
+				<Key><PropertyRef Name="ORDINEDIPRODUZIONE"/><PropertyRef Name="OPERAZIONE"/><PropertyRef Name="OPERATORE"/><PropertyRef Name="PROGRESSIVO"/></Key><Property Name="ORDINEDIPRODUZIONE" Type="Edm.String" Nullable="false" MaxLength="12"/><Property Name="OPERAZIONE" Type="Edm.String" Nullable="false" MaxLength="4"/><Property Name="ORAINIZIO" Type="Edm.Time"/><Property Name="ORAFINE" Type="Edm.Time"/><Property Name="MANODOPERA" Type="Edm.Decimal" Precision="9" Scale="2"/><Property Name="ATTREZZAGGIO" Type="Edm.Decimal" Precision="9" Scale="2"/><Property Name="MACCHINA" Type="Edm.Decimal" Precision="9" Scale="2"/><Property Name="QUANTITA" Type="Edm.Decimal" Precision="9" Scale="2"/><Property Name="UM" Type="Edm.String" MaxLength="8"/><Property Name="ALLINEATOS4" Type="Edm.Byte"/><Property Name="DATAINIZIO" Type="Edm.DateTime"/><Property Name="DATAFINE" Type="Edm.DateTime"/><Property Name="OPERATORE" Type="Edm.String" Nullable="false" MaxLength="20"/><Property Name="PROGRESSIVO" Type="Edm.Int32" Nullable="false"/></EntityType>
+			<EntityType Name="SospensioniType">
+				<Key><PropertyRef Name="ORDINEDIPRODUZIONE"/><PropertyRef Name="OPERAZIONE"/><PropertyRef Name="OPERATORE"/><PropertyRef Name="PROGRESSIVO"/></Key><Property Name="ORDINEDIPRODUZIONE" Type="Edm.String" Nullable="false" MaxLength="12"/><Property Name="OPERAZIONE" Type="Edm.String" Nullable="false" MaxLength="4"/><Property Name="DATA" Type="Edm.DateTime"/><Property Name="ORAINIZIO" Type="Edm.Time"/><Property Name="ORAFINE" Type="Edm.Time"/><Property Name="NOTELIBERE" Type="Edm.String" MaxLength="80"/><Property Name="ALLINEATOS4" Type="Edm.Byte"/><Property Name="OPERATORE" Type="Edm.String" Nullable="false" MaxLength="20"/><Property Name="CAUSALE" Type="Edm.String" MaxLength="8"/><Property Name="AZZIONEAGGIUNTIVA" Type="Edm.String" MaxLength="8"/><Property Name="PROGRESSIVO" Type="Edm.Int32" Nullable="false"/></EntityType>
+			<EntityType Name="VersamentiType">
+				<Key><PropertyRef Name="IDBANCALE"/><PropertyRef Name="PROGRESSIVO"/></Key><Property Name="IDBANCALE" Type="Edm.String" Nullable="false" MaxLength="12"/><Property Name="COMPLETO" Type="Edm.Byte"/><Property Name="ORDINEDIPRODUZIONE" Type="Edm.String" MaxLength="12"/><Property Name="OPERAZIONE" Type="Edm.String" MaxLength="4"/><Property Name="ARTICOLO" Type="Edm.String" MaxLength="40"/><Property Name="QUANTITA" Type="Edm.Decimal" Precision="9" Scale="2"/><Property Name="UM" Type="Edm.String" MaxLength="8"/><Property Name="ALLINEATOS4" Type="Edm.Byte"/><Property Name="PROGRESSIVO" Type="Edm.Int32" Nullable="false"/></EntityType>
+			<EntityType Name="ChiaviComandiType">
+				<Key><PropertyRef Name="CHIAVE"/></Key><Property Name="CHIAVE" Type="Edm.String" Nullable="false" MaxLength="8"/><Property Name="DESCRIZIONE" Type="Edm.String" MaxLength="40"/><Property Name="CHIAVEINS4" Type="Edm.String" MaxLength="8"/></EntityType>
+			<EntityType Name="StatiType">
+				<Key><PropertyRef Name="CHIAVE"/></Key><Property Name="CHIAVE" Type="Edm.String" Nullable="false" MaxLength="8"/><Property Name="DESCRIZIONE" Type="Edm.String" MaxLength="40"/><Property Name="STATOMACCHINA" Type="Edm.Byte"/></EntityType>
+			<EntityType Name="CausaliSospensioniType">
+				<Key><PropertyRef Name="CHIAVE"/></Key><Property Name="CHIAVE" Type="Edm.String" Nullable="false" MaxLength="8"/><Property Name="DESCRIZIONE" Type="Edm.String" MaxLength="40"/><Property Name="CHIAVEINS4" Type="Edm.String" MaxLength="10"/><Property Name="AZIONERICHIESTA" Type="Edm.String" MaxLength="80"/></EntityType>
+			<EntityType Name="AzioniType">
+				<Key><PropertyRef Name="CHIAVE"/></Key><Property Name="CHIAVE" Type="Edm.String" Nullable="false" MaxLength="8"/><Property Name="DESCRIZIONE" Type="Edm.String" MaxLength="80"/><Property Name="CHIAVEINS4" Type="Edm.String" MaxLength="10"/></EntityType>
+			<EntityType Name="MansioniType">
+				<Key><PropertyRef Name="CHIAVE"/><PropertyRef Name="MACCHINARIO"/></Key><Property Name="CHIAVE" Type="Edm.String" Nullable="false" MaxLength="8"/><Property Name="MACCHINARIO" Type="Edm.String" Nullable="false" MaxLength="40"/><Property Name="DESCRIZIONE" Type="Edm.String" MaxLength="40"/></EntityType>
+			<EntityType Name="GruppoMacchinariType">
+				<Key><PropertyRef Name="CHIAVE"/></Key><Property Name="IPHMI" Type="Edm.String" MaxLength="15"/><Property Name="DESCRIZIONE" Type="Edm.String" MaxLength="40"/><Property Name="CHIAVE" Type="Edm.String" Nullable="false" MaxLength="8"/></EntityType>
+			<Association Name="ASSOC_GRUPPOMACCHINARIType"><End Type="morocolor_dev.morocolor_dev_odata.GruppoMacchinariType" Role="GruppoMacchinariPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.MacchinariType" Role="MacchinariDependent" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="GruppoMacchinariPrincipal"><PropertyRef Name="CHIAVE"/></Principal>
+					<Dependent Role="MacchinariDependent"><PropertyRef Name="GRUPPOMACCHINA"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ASSOC_STATIMACCHINAType"><End Type="morocolor_dev.morocolor_dev_odata.StatiType" Role="StatiPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.MacchinariType" Role="MacchinariDependent" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="StatiPrincipal"><PropertyRef Name="CHIAVE"/></Principal>
+					<Dependent Role="MacchinariDependent"><PropertyRef Name="STATOMACCHINA"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ASSOC_AZIONISOSPENSIONIType"><End Type="morocolor_dev.morocolor_dev_odata.AzioniType" Role="AzioniPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.CausaliSospensioniType" Role="CausaliSospensioniDependent" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="AzioniPrincipal"><PropertyRef Name="CHIAVE"/></Principal>
+					<Dependent Role="CausaliSospensioniDependent"><PropertyRef Name="AZIONERICHIESTA"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ASSOC_MANSIONIOPERATORIType"><End Type="morocolor_dev.morocolor_dev_odata.MansioniType" Role="MansioniPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.OperatoriType" Role="OperatoriDependent" Multiplicity="*"/></Association>
+			<Association Name="ASSOC_STATIOPERAZIONEType"><End Type="morocolor_dev.morocolor_dev_odata.StatiType" Role="StatiPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.OrdiniType" Role="OrdiniDependent" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="StatiPrincipal"><PropertyRef Name="CHIAVE"/></Principal>
+					<Dependent Role="OrdiniDependent"><PropertyRef Name="STATOOPERAZIONE"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ASSOC_CHIAVICOMANDOType"><End Type="morocolor_dev.morocolor_dev_odata.ChiaviComandiType" Role="ChiaviComandiPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.OrdiniType" Role="OrdiniDependent" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="ChiaviComandiPrincipal"><PropertyRef Name="CHIAVE"/></Principal>
+					<Dependent Role="OrdiniDependent"><PropertyRef Name="CHIAVECOMANDO"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ASSOC_LOTTICOMPONENTIType"><End Type="morocolor_dev.morocolor_dev_odata.ComponentiType" Role="ComponentiPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.LottiType" Role="LottiDependent" Multiplicity="*"/></Association>
+			<Association Name="ASSOC_SESSIONEOPERATORELOGINType"><End Type="morocolor_dev.morocolor_dev_odata.OperatoriType" Role="OperatoriPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.SessioniOperatoriType" Role="SessioniOperatoriDependent" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="OperatoriPrincipal"><PropertyRef Name="CID"/></Principal>
+					<Dependent Role="SessioniOperatoriDependent"><PropertyRef Name="OPERATORE"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ASSOC_SESSIONEOPERATORESINGOLOType"><End Type="morocolor_dev.morocolor_dev_odata.OperatoriType" Role="OperatoriPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.SessioniOperatoriType" Role="SessioniOperatoriDependent" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="OperatoriPrincipal"><PropertyRef Name="CID"/></Principal>
+					<Dependent Role="SessioniOperatoriDependent"><PropertyRef Name="OPERATORESINGOLO"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ASSOC_SOSPENSIONIOPERATOREType"><End Type="morocolor_dev.morocolor_dev_odata.OperatoriType" Role="OperatoriPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.SospensioniType" Role="SospensioniDependent" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="OperatoriPrincipal"><PropertyRef Name="CID"/></Principal>
+					<Dependent Role="SospensioniDependent"><PropertyRef Name="OPERATORE"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ASSOC_SOSPENSIONICAUSALIType"><End Type="morocolor_dev.morocolor_dev_odata.CausaliSospensioniType" Role="CausaliSospensioniPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.SospensioniType" Role="SospensioniDependent" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="CausaliSospensioniPrincipal"><PropertyRef Name="CHIAVE"/></Principal>
+					<Dependent Role="SospensioniDependent"><PropertyRef Name="CAUSALE"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="ASSOC_SOSPENSIONIAZIOENIType"><End Type="morocolor_dev.morocolor_dev_odata.AzioniType" Role="AzioniPrincipal" Multiplicity="1"/><End Type="morocolor_dev.morocolor_dev_odata.SospensioniType" Role="SospensioniDependent" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="AzioniPrincipal"><PropertyRef Name="CHIAVE"/></Principal>
+					<Dependent Role="SospensioniDependent"><PropertyRef Name="AZZIONEAGGIUNTIVA"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="morocolor_dev_odata" m:IsDefaultEntityContainer="true"><EntitySet Name="Macchinari" EntityType="morocolor_dev.morocolor_dev_odata.MacchinariType"/><EntitySet Name="Operatori" EntityType="morocolor_dev.morocolor_dev_odata.OperatoriType"/><EntitySet Name="Ordini" EntityType="morocolor_dev.morocolor_dev_odata.OrdiniType"/><EntitySet Name="Componenti" EntityType="morocolor_dev.morocolor_dev_odata.ComponentiType"/><EntitySet Name="Lotti" EntityType="morocolor_dev.morocolor_dev_odata.LottiType"/><EntitySet Name="SessioniOperatori" EntityType="morocolor_dev.morocolor_dev_odata.SessioniOperatoriType"/><EntitySet Name="Tempi" EntityType="morocolor_dev.morocolor_dev_odata.TempiType"/><EntitySet Name="Sospensioni" EntityType="morocolor_dev.morocolor_dev_odata.SospensioniType"/><EntitySet Name="Versamenti" EntityType="morocolor_dev.morocolor_dev_odata.VersamentiType"/><EntitySet Name="ChiaviComandi" EntityType="morocolor_dev.morocolor_dev_odata.ChiaviComandiType"/><EntitySet Name="Stati" EntityType="morocolor_dev.morocolor_dev_odata.StatiType"/><EntitySet Name="CausaliSospensioni" EntityType="morocolor_dev.morocolor_dev_odata.CausaliSospensioniType"/><EntitySet Name="Azioni" EntityType="morocolor_dev.morocolor_dev_odata.AzioniType"/><EntitySet Name="Mansioni" EntityType="morocolor_dev.morocolor_dev_odata.MansioniType"/><EntitySet Name="GruppoMacchinari" EntityType="morocolor_dev.morocolor_dev_odata.GruppoMacchinariType"/>
+				<AssociationSet Name="ASSOC_GRUPPOMACCHINARI" Association="morocolor_dev.morocolor_dev_odata.ASSOC_GRUPPOMACCHINARIType"><End Role="GruppoMacchinariPrincipal" EntitySet="GruppoMacchinari"/><End Role="MacchinariDependent" EntitySet="Macchinari"/></AssociationSet>
+				<AssociationSet Name="ASSOC_STATIMACCHINA" Association="morocolor_dev.morocolor_dev_odata.ASSOC_STATIMACCHINAType"><End Role="StatiPrincipal" EntitySet="Stati"/><End Role="MacchinariDependent" EntitySet="Macchinari"/></AssociationSet>
+				<AssociationSet Name="ASSOC_AZIONISOSPENSIONI" Association="morocolor_dev.morocolor_dev_odata.ASSOC_AZIONISOSPENSIONIType"><End Role="AzioniPrincipal" EntitySet="Azioni"/><End Role="CausaliSospensioniDependent" EntitySet="CausaliSospensioni"/></AssociationSet>
+				<AssociationSet Name="ASSOC_MANSIONIOPERATORI" Association="morocolor_dev.morocolor_dev_odata.ASSOC_MANSIONIOPERATORIType"><End Role="MansioniPrincipal" EntitySet="Mansioni"/><End Role="OperatoriDependent" EntitySet="Operatori"/></AssociationSet>
+				<AssociationSet Name="ASSOC_STATIOPERAZIONE" Association="morocolor_dev.morocolor_dev_odata.ASSOC_STATIOPERAZIONEType"><End Role="StatiPrincipal" EntitySet="Stati"/><End Role="OrdiniDependent" EntitySet="Ordini"/></AssociationSet>
+				<AssociationSet Name="ASSOC_CHIAVICOMANDO" Association="morocolor_dev.morocolor_dev_odata.ASSOC_CHIAVICOMANDOType"><End Role="ChiaviComandiPrincipal" EntitySet="ChiaviComandi"/><End Role="OrdiniDependent" EntitySet="Ordini"/></AssociationSet>
+				<AssociationSet Name="ASSOC_LOTTICOMPONENTI" Association="morocolor_dev.morocolor_dev_odata.ASSOC_LOTTICOMPONENTIType"><End Role="ComponentiPrincipal" EntitySet="Componenti"/><End Role="LottiDependent" EntitySet="Lotti"/></AssociationSet>
+				<AssociationSet Name="ASSOC_SESSIONEOPERATORELOGIN" Association="morocolor_dev.morocolor_dev_odata.ASSOC_SESSIONEOPERATORELOGINType"><End Role="OperatoriPrincipal" EntitySet="Operatori"/><End Role="SessioniOperatoriDependent" EntitySet="SessioniOperatori"/></AssociationSet>
+				<AssociationSet Name="ASSOC_SESSIONEOPERATORESINGOLO" Association="morocolor_dev.morocolor_dev_odata.ASSOC_SESSIONEOPERATORESINGOLOType"><End Role="OperatoriPrincipal" EntitySet="Operatori"/><End Role="SessioniOperatoriDependent" EntitySet="SessioniOperatori"/></AssociationSet>
+				<AssociationSet Name="ASSOC_SOSPENSIONIOPERATORE" Association="morocolor_dev.morocolor_dev_odata.ASSOC_SOSPENSIONIOPERATOREType"><End Role="OperatoriPrincipal" EntitySet="Operatori"/><End Role="SospensioniDependent" EntitySet="Sospensioni"/></AssociationSet>
+				<AssociationSet Name="ASSOC_SOSPENSIONICAUSALI" Association="morocolor_dev.morocolor_dev_odata.ASSOC_SOSPENSIONICAUSALIType"><End Role="CausaliSospensioniPrincipal" EntitySet="CausaliSospensioni"/><End Role="SospensioniDependent" EntitySet="Sospensioni"/></AssociationSet>
+				<AssociationSet Name="ASSOC_SOSPENSIONIAZIOENI" Association="morocolor_dev.morocolor_dev_odata.ASSOC_SOSPENSIONIAZIOENIType"><End Role="AzioniPrincipal" EntitySet="Azioni"/><End Role="SospensioniDependent" EntitySet="Sospensioni"/></AssociationSet>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

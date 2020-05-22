@@ -1,0 +1,78 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns="sap.m">
+	<Dialog contentHeight="80%" contentWidth="60%" showHeader="true" title="Stampa etichette" class="sapUiContentPadding" escapeHandler="onExit">
+		<Page enableScrolling="true" showNavButton="false">
+			<VBox class="sapUiSmallMargin">
+				<f:Form id="FormDisplayColumn_oneGroup" editable="false">
+					<f:layout>
+						<f:ColumnLayout columnsM="1" columnsL="1" columnsXL="1"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Ordine">
+									<f:fields>
+										<Text text="{/ordine}"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Operazione">
+									<f:fields>
+										<Text text="{/operazione}"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Descrizione">
+									<f:fields>
+										<Text text="{/descrizione}"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="CID">
+									<f:fields>
+										<ComboBox id="cid" showSecondaryValues="true" items="{ path: '/cid', sorter: { path: 'cid' } }" selectedKey="{/cid/0/cid}" required="true">
+											<core:ListItem key="{cid}" text="{cid} {nome} {cognome}"/>
+											<layoutData>
+												<f:ColumnElementData cellsSmall="3" cellsLarge="3"/>
+											</layoutData>
+										</ComboBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Selezionare la stampa desiderata">
+									<f:fields>
+										<RadioButtonGroup id="RBG0" columns="1" valueState="Error" class="sapUiMediumMarginBottom" selectedIndex="-1">
+											<RadioButton id="RB1" enabled="{=${/stampa}.includes('T') === true}" select="_handleSelect" text="Stampa etichette"/>
+											<RadioButton id="RB2" enabled="{=${/stampa}.includes('M') === true}" select="_handleSelect" text="Marcatore Laser"/>
+											<RadioButton id="RB3" enabled="{=${/stampa}.includes('Q') === true }" select="_handleSelect" text="Stampa tipo Q"/>
+										</RadioButtonGroup>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Nr. etichette">
+									<f:fields>
+										<Input value="1" id="inp_eti">
+											<layoutData>
+												<f:ColumnElementData cellsSmall="3" cellsLarge="2"/>
+											</layoutData>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Quantità">
+									<f:fields>
+										<Input value="1" id="inp_qta">
+											<layoutData>
+												<f:ColumnElementData cellsSmall="3" cellsLarge="2"/>
+											</layoutData>
+										</Input>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</VBox>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button text="Conferma" press="onConfirmCOM10" class="button"/>
+					<Button text="Cancella" press="onExit" class="button"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,250 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:table="sap.ui.table"
+	class="sapUiSizeCompact" xmlns:core="sap.ui.core">
+	<Dialog showHeader="false" contentWidth="70%" contentHeight="80%" escapeHandler="onExit">
+		<NavContainer id="navCon" class="navContainerControl sapUiSmallMarginBottom">
+			<Page id="master" title="Avanzamento di produzione" enableScrolling="true">
+				<l:FixFlex>
+					<l:fixContent>
+						<VBox class="sapUiSizeCompact">
+							<f:Form>
+								<f:layout>
+									<f:ColumnLayout columnsM="2" columnsL="3" columnsXL="3"/>
+								</f:layout>
+								<f:formContainers>
+									<f:FormContainer>
+										<f:formElements>
+											<f:FormElement label="Ordine">
+												<f:fields>
+													<Text text="{/ordine}"/>
+												</f:fields>
+											</f:FormElement>
+											<f:FormElement label="Operazione">
+												<f:fields>
+													<Text text="{/operazione}"/>
+												</f:fields>
+											</f:FormElement>
+											<f:FormElement label="Descrizione">
+												<f:fields>
+													<Text text="{/descrizione}"/>
+												</f:fields>
+											</f:FormElement>
+											<f:FormElement label="Quantità richiesta">
+												<f:fields>
+													<Text text="{/quantitaRichiesta} {/um}"/>
+												</f:fields>
+											</f:FormElement>
+											<f:FormElement label="Quantità residua">
+												<f:fields>
+													<Text text="{/quantitaResiduadaVersare} {/um}"/>
+												</f:fields>
+											</f:FormElement>
+											<f:FormElement label="Quantità pf">
+												<f:fields>
+													<Input value="{/pf}" description="{/um}" width="10rem"/>
+												</f:fields>
+											</f:FormElement>
+											<f:FormElement label="Scarto">
+												<f:fields>
+													<Input value="{/scarto}" description="{/um}" width="10rem"/>
+												</f:fields>
+											</f:FormElement>
+											<f:FormElement label="CID">
+												<f:fields>
+													<ComboBox id="cid" showSecondaryValues="true" items="{ path: '/cid', sorter: { path: 'cid' } }" selectedKey="{/cid/0/cid}" required="true"
+														width="10rem">
+														<core:ListItem key="{cid}" text="{cid} {nome} {cognome}"/>
+													</ComboBox>
+												</f:fields>
+											</f:FormElement>
+											<f:FormElement label="Note azioni">
+												<f:fields>
+													<Input value="{/noteazioni}" width="10rem"/>
+												</f:fields>
+											</f:FormElement>
+											<f:FormElement label="">
+												<f:fields>
+													<CheckBox id="chk_clo" text="Chiudere ordine" valueState="Information" selected="false" wrapping="true"/>
+												</f:fields>
+											</f:FormElement>
+										</f:formElements>
+									</f:FormContainer>
+								</f:formContainers>
+							</f:Form>
+						</VBox>
+					</l:fixContent>
+					<l:flexContent>
+						<NavContainer id="navCon1" class="navContainerControl sapUiSmallMarginBottom" visible="{/bancali}">
+							<Page id="master1" title="Bancali" enableScrolling="true">
+								<ScrollContainer horizontal="true" vertical="true" focusable="true">
+									<Table id="tblBancali" selectionChange="onNavToVersamentiCOM4emezzo" alternateRowColors="true"
+										sticky="HeaderToolbar,InfoToolbar,ColumnHeaders"
+										items="{ path: '/bancaliList/bancali', sorter : { path : 'idBancale', descending : false }, templateShareable: true}" growing="true"
+										includeItemInSelection="true" mode="SingleSelectLeft" modeAnimationOn="true" class="sapUiSizeCompact">
+										<columns>
+											<Column>
+												<header>
+													<Text text="Bancale"/>
+												</header>
+											</Column>
+											<Column>
+												<header>
+													<Text text="Data creazione"/>
+												</header>
+											</Column>
+											<Column>
+												<header>
+													<Text text="Totale quantità"/>
+												</header>
+											</Column>
+											<Column>
+												<header>
+													<Text text="Totale colli"/>
+												</header>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<cells>
+													<Text text="{idBancale}"/>
+													<Text text="{dataCreazione}"/>
+													<Text text="{qtaTot}"/>
+													<Text text="{qtaColliTot}"/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</ScrollContainer>
+							</Page>
+							<Page id="detail1" title="Versamenti" enableScrolling="true" showNavButton="true" navButtonPress="onNavBackVersamentiCOM4emezzo">
+								<FlexBox justifyContent="Center">
+									<FlexBox alignItems="Center" width="12rem">
+										<Label text="Bancale:" class="sapUiTinyMarginEnd"/>
+										<Text text="{/idBancale}"/>
+									</FlexBox>
+									<FlexBox alignItems="Center" width="12rem" justifyContent="End">
+										<Label text="Completo"/>
+										<CheckBox selected="{/bancaleCompleto}" valueState="Information"/>
+									</FlexBox>
+								</FlexBox>
+								<ScrollContainer horizontal="true" vertical="true" focusable="true">
+									<table:Table id="tblVersamenti"
+										rows="{path: '/versamenti', sorter: [{ path : 'data', descending : false }, {path : 'ora', descending : false}]}" enableSelectAll="false"
+										alternateRowColors="true" class="sapUiSizeCondensed" enableBusyIndicator="true" selectionMode="Single"
+										selectionBehavior="RowOnly" visibleRowCountMode="Auto" enableCellFilter="true">
+										<table:noData>
+											<BusyIndicator class="sapUiMediumMargin"/>
+										</table:noData>
+										<table:columns>
+											<table:Column sortProperty="ordine" filterProperty="ordine">
+												<Label text="Ordine"/>
+												<table:template>
+													<Text text="{ordine}"/>
+												</table:template>
+											</table:Column>
+											<table:Column sortProperty="descrizioneArticolo" filterProperty="descrizioneArticolo" width="15rem">
+												<Label text="Articolo"/>
+												<table:template>
+													<Text text="{descrizioneArticolo}"/>
+												</table:template>
+											</table:Column>
+											<table:Column sortProperty="quantita" filterProperty="quantita" width="8rem">
+												<Label text="Quantità"/>
+												<table:template>
+													<Text text="{= parseFloat(${quantita}).toFixed(2)}"/>
+												</table:template>
+											</table:Column>
+											<table:Column sortProperty="quantitaColli" filterProperty="quantitaColli" width="10rem">
+												<Label text="Quantità colli"/>
+												<table:template>
+													<Text text="{= parseFloat(${quantitaColli}).toFixed(2)}"/>
+												</table:template>
+											</table:Column>
+											<table:Column sortProperty="data" filterProperty="data">
+												<Label text="Data"/>
+												<table:template>
+													<Text text="{data}"/>
+												</table:template>
+											</table:Column>
+											<table:Column sortProperty="ora" filterProperty="ora">
+												<Label text="Ora"/>
+												<table:template>
+													<Text text="{ora}"/>
+												</table:template>
+											</table:Column>
+										</table:columns>
+									</table:Table>
+								</ScrollContainer>
+							</Page>
+						</NavContainer>
+					</l:flexContent>
+				</l:FixFlex>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button text="Avanti" press="onNavToCOM4emezzo" class="button"
+							visible="{= (${/bancali} &amp;&amp; !!${/idBancale}) || !${/bancali} ? true : false}"/>
+						<Button text="Cancella" press="onExit" class="button"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+			<Page id="detail" title="Consumo/scarto componenti" enableScrolling="true" showNavButton="true" navButtonPress="onNavBack">
+				<Table id="tblComponents" selectionChange="onPress" mode="MultiSelect" alternateRowColors='true'
+					sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" class="sapUiSizeCompact"
+					items="{ path: '/componenti', sorter : { path : 'componente', descending : false }, templateShareable:true}">
+					<columns>
+						<Column width="15rem">
+							<header>
+								<Text text="Descrizione/componente"/>
+							</header>
+						</Column>
+						<Column>
+							<header>
+								<Text text="Cons.Teorico"/>
+							</header>
+						</Column>
+						<Column>
+							<header>
+								<Text text="Cons.conf."/>
+							</header>
+						</Column>
+						<Column>
+							<header>
+								<Text text="Scarto/UM"/>
+							</header>
+						</Column>
+						<Column width="10rem">
+							<header>
+								<Text text="Lotto"/>
+							</header>
+						</Column>
+						<Column width="3em"/>
+						<Column width="3em" hAlign="End"/>
+					</columns>
+					<items>
+						<ColumnListItem selected="{selected}">
+							<cells>
+								<ObjectIdentifier title="{descrizioneComponente}" text="{componente}"/>
+								<ObjectIdentifier title="{consumoTeorico}" text="{consumoConfermato}"/>
+								<Input value="{consumoConfermato}" textAlign="Right" valueState="{= ${copied} ? 'Warning' : 'None'}" valueStateText="Componente copiato"/>
+								<Input value="{scarto}" textAlign="Right" valueState="{= ${copied} ? 'Warning' : 'None'}" valueStateText="Componente copiato"/>
+								<ComboBox showSecondaryValues="true" change="onLottoChange" items="{path: 'lotti', sorter: {path: 'nomeLotto'}}" selectedKey="{lotto}"
+									visible="{obbligoLotto}" valueState="{= ${copied} ? 'Warning' : 'None'}" valueStateText="Componente copiato">
+									<core:ListItem key="{nomeLotto}" text="{nomeLotto}" additionalText="{quantita}"/>
+								</ComboBox>
+								<Button icon="sap-icon://copy" press="onCopyComponentCOM4emezzo" class="button"/>
+								<Button icon="sap-icon://delete" press="onDeleteComponentCOM4emezzo" visible="{copied}" type="Reject"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button text="Conferma" press="onConfirmCOM4emezzo" class="button"/>
+						<Button text="Cancella" press="onExit" class="button"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</NavContainer>
+	</Dialog>
+</core:FragmentDefinition>

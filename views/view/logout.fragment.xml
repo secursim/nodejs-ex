@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns="sap.m">
+	<TableSelectDialog id="cid" noDataText="No User Found" title="Logout utenti" search="handleSearch" confirm="onConfirmLogout"
+		cancel="onCancelLogout" items="{ path : '/accettati', sorter : { path : 'cid', descending : false } }" multiSelect="true" class="tableSelectDialogClass">
+		<ColumnListItem>
+			<cells>
+				<core:Icon src="{= ${teamLeader} ? 'sap-icon://leads' : 'sap-icon://employee'}"/>
+				<ObjectIdentifier title="{cid}"/>
+				<Text text="{cognome}"/>
+				<Text text="{nome}"/>
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="3rem" />
+			<Column>
+				<header>
+					<Text text="CID"/>
+				</header>
+			</Column>
+			<Column>
+				<header>
+					<Text text="Cognome"/>
+				</header>
+			</Column>
+			<Column>
+				<header>
+					<Text text="Nome"/>
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

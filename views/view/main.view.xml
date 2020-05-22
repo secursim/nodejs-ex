@@ -1,0 +1,122 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table"
+	xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" controllerName="it.greenorange.mes.controller.main" height="100%">
+	<App id="app" autoFocus="false" backgroundOpacity="0.1">
+		<Page class="sapUiContentPadding" showNavButton="false" enableScrolling="false">
+			<headerContent>
+				<Title text="{i18n>title} {userapi>/name}"/>
+				<HBox justifyContent="Center">
+					<Label id="oClock" design="Bold"/>
+				</HBox>
+			</headerContent>
+			<content>
+				<TabContainer items="{ path: '/impianti' }" id="myTabContainer" itemSelect="onItemSelected">
+					<items>
+						<TabContainerItem name="{impianto}" additionalText="{ipMacchinario}" id="myTabContainerItem" icon="{icon}" modified="false"
+							class="tabCustomContainer">
+							<content>
+								<VBox fitContainer="true" visible="{= ${login} === 'true'}" id="box" height="25%" width="100%">
+									<customData>
+										<core:CustomData key="status-snr" value="{statoMacchinario}" writeToDom="true"/>
+									</customData>
+									<layout:VerticalLayout id="containerLayout" width="100%">
+										<layout:BlockLayout>
+											<layout:BlockLayoutRow>
+												<layout:BlockLayoutCell width="70%">
+													<FlexBox id="hbox0" alignItems="Start">
+														<!-- COM5	DICHIARAZIONE DI PRODUZIONE	Versamenti di Produzione	 -->
+														<GenericTile xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+															class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout myAvanzamentoTile" header="Avanzamento" subheader="Versamenti di Produzione"
+															frameType="OneByOne" id="ZP01_COM5" fieldGroupIds="ZP01" press="handleCommandCOM4emezzo"
+															visible="{= ${chiaveComando} === 'ZP01' || ${chiaveComando} === 'ZP03' || ${chiaveComando} === 'QP01' || ${chiaveComando} === 'QP03'}">
+															<TileContent>
+																<ImageContent src="sap-icon://timesheet"/>
+															</TileContent>
+														</GenericTile>
+														<!-- COM6	CONSUMO/SCARTO COMPONENTI	Dichiarazione Consumi/Scarti   -->
+														<GenericTile xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+															class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout myScartoTile" header="Scarto componenti" subheader="Dich. Scarti"
+															frameType="OneByOne" id="ZP01_COM6" fieldGroupIds="ZP01" press="handleCommandCOM6"
+															visible="{= ${chiaveComando} === 'QP01' || ${chiaveComando} === 'QP03' || ${chiaveComando} === 'QPD1' || ${chiaveComando} === 'ZP01' || ${chiaveComando} === 'ZP03'}">
+															<TileContent>
+																<ImageContent src="sap-icon://clear-filter"/>
+															</TileContent>
+														</GenericTile>
+														<!-- COM9	TEST FINALI	Eseguire ctrl Qualità Finale -->
+														<GenericTile xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+															class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout myQualitaTile" header="Controllo qualità" subheader="Eseguire ctrl Qualità"
+															frameType="OneByOne" id="QP01_COM9" fieldGroupIds="QP01" press="handleCommandCOM9"
+															visible="{= ${chiaveComando} === 'QP01' || ${chiaveComando} === 'QP03' || ${chiaveComando} === 'QPC1'}">
+															<TileContent>
+																<ImageContent src="sap-icon://kpi-managing-my-area"/>
+															</TileContent>
+														</GenericTile>
+														<GenericTile xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+															class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout myOrdineTile" header="Crea ordine" subheader="Creazione ordine kanban"
+															frameType="OneByOne" id="ZM02_COM7" fieldGroupIds="ZM02" press="handleCommandCOM7" visible="{kanban}">
+															<TileContent>
+																<ImageContent src="sap-icon://customer-order-entry"/>
+															</TileContent>
+														</GenericTile>
+													</FlexBox>
+												</layout:BlockLayoutCell>
+												<layout:BlockLayoutCell titleAlignment="Right" width="30%">
+													<FlexBox id="hbox1" alignItems="End">
+														<!-- SOSP	COM4	CAUSALE SOSPENSIONE(Tab L3)	Fermo Impianto (Spec. Causale) -->
+														<GenericTile xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+															class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout myRimozioneSospTile" header="Rimuovi sospensione Fermo Impianto"
+															subheader="(Spec. Causale)" frameType="OneByOne" id="END_COM4" fieldGroupIds="ZP01" press="onRemoveCOM4"
+															visible="{= ${statoMacchinario} === 'SOSP'}">
+															<TileContent>
+																<ImageContent src="sap-icon://restart"/>
+															</TileContent>
+														</GenericTile>
+														<GenericTile xmlns:action="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+															class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout myCausaleSospTile" header="Sospendi Fermo Impianto" subheader="(Spec. Causale)"
+															frameType="OneByOne" id="SOSP_COM4" fieldGroupIds="ZP01" press="handleCommandCOM4" visible="{= ${statoMacchinario} !== 'SOSP'}">
+															<TileContent>
+																<ImageContent src="sap-icon://stop"/>
+															</TileContent>
+														</GenericTile>
+														<!-- PRINT	COM10	STAMPA ETICHETTE Stampa/Ristampa Etichette -->
+														<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout myStampaTile" header="Stampa etichette"
+															subheader="Stampa/Ristampa Etichette" frameType="OneByOne" id="PRINT_COM10" fieldGroupIds="PRINT" press="handleCommandCOM10">
+															<TileContent>
+																<ImageContent src="sap-icon://print"/>
+															</TileContent>
+														</GenericTile>
+													</FlexBox>
+												</layout:BlockLayoutCell>
+											</layout:BlockLayoutRow>
+										</layout:BlockLayout>
+									</layout:VerticalLayout>
+								</VBox>
+								<VBox fitContainer="true" visible="{= ${login} === 'true'}" id="table" height="70%" width="100%">
+									<core:Fragment fragmentName="it.greenorange.mes.view.tables" type="XML"/>
+								</VBox>
+								<Bar visible="{= ${login} === 'true'}" class="footerBarMainView">
+									<contentLeft>
+										<Button icon="sap-icon://visits" text="{= ${usersModel>/}.length }" class="button" press="handleUserPopoverPress" width="10em"/>
+									</contentLeft>
+									<contentMiddle>
+										<Button icon="sap-icon://inventory" text="Bancali" visible="{bancali}" class="button" press="handleBancaliPopoverPress" width="10em"/>
+									</contentMiddle>
+									<contentRight>
+										<Button icon="sap-icon://log" id="btnExit" text="Logout" press="onLogout" class="button" width="10em"/>
+									</contentRight>
+								</Bar>
+								<VBox fitContainer="true" visible="{= ${login} === 'false'}" class="sapUiSmallMargin loginForm" justifyContent="Center" alignItems="Center"
+									alignContent="Center">
+									<items>
+										<Input width="20rem" id="txtLogin" placeholder="User ID" valueLiveUpdate="true" submit="onLogin" required="true" value="{cid}"/>
+										<Button icon="sap-icon://visits" width="20rem" text="{impianto}" press="onLogin" id="btnLogin" class="button"/>
+										<CheckBox id="chkTeamLeader" text="Team leader" valueState="Information" selected="{chkTeamLeader}"/>
+									</items>
+								</VBox>
+							</content>
+						</TabContainerItem>
+					</items>
+				</TabContainer>
+			</content>
+		</Page>
+	</App>
+</mvc:View>

@@ -1,0 +1,332 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:t="sap.ui.table">
+	<!-- /////////////////////////////////////// TABELLA LAYOUT I /////////////////////////////////////// -->
+	<t:Table id="tblOrdersI" rows="{path: 'operazioni', templateShareable: true}" enableSelectAll="false" alternateRowColors="true"
+		class="sapUiSizeCondensed" rowSelectionChange="onPress" selectionMode="Single" selectionBehavior="RowOnly" visibleRowCount="{rowsNumber}"
+		enableCellFilter="true" visible="{= ${layout} === 'I' ? true : false}">
+		<t:extension>
+			<core:Fragment fragmentName="it.greenorange.mes.view.headerTableI" type="XML"/>
+		</t:extension>
+		<t:columns>
+			<t:Column width="3rem">
+				<t:template>
+					<Button icon="sap-icon://display" press="getRiepilogo" type="{= ${toFix} ? 'Critical' : 'Emphasized'}" tooltip="{= ${toFix} ? 'Sospensioni da integrare' : ''}">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Button>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="dataInizioRichiesta" sorted="true" filterProperty="dataInizioRichiesta" width="8rem">
+				<Label text="Data inizio"/>
+				<t:template>
+					<Text text="{dataInizioRichiesta}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="ordine" filterProperty="ordine" width="9rem">
+				<Label text="Ordine"/>
+				<t:template>
+					<Text text="{ordine}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="operazione" filterProperty="operazione" width="6rem">
+				<Label text="Operaz."/>
+				<t:template>
+					<Text text="{operazione}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="statoOperazione" filterProperty="statoOperazione" width="5rem">
+				<Label text="Stato"/>
+				<t:template>
+					<Text text="{statoOperazione}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="operazioneSuccessiva" filterProperty="operazioneSuccessiva" width="18rem">
+				<Label text="Operazione successiva"/>
+				<t:template>
+					<Text text="{operazioneSuccessiva}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="descrizione" filterProperty="descrizione" width="18rem">
+				<Label text="Descrizione operaz."/>
+				<t:template>
+					<Text text="{descrizione}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column width="5rem" visible="{= ${triggerLawer}}">
+				<Label text="Law."/>
+				<t:template>
+					<Button icon="sap-icon://unwired" press="handleLanciaLawer" class="button">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Button>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="execLawer" filterProperty="execLawer" width="6rem" visible="{= ${triggerLawer}}">
+				<Label text="Macch."/>
+				<t:template>
+					<Text text="{execLawer}">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="articolo" filterProperty="articolo" width="10rem">
+				<Label text="Articolo"/>
+				<t:template>
+					<Text text="{articolo}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="descrizioneArticolo" filterProperty="descrizioneArticolo" width="22rem">
+				<Label text="Descrizione articolo"/>
+				<t:template>
+					<Text text="{descrizioneArticolo}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="quantitaRichiesta" filterProperty="quantitaRichiesta" width="6rem">
+				<Label text="Quantità"/>
+				<t:template>
+					<Text text="{= parseFloat(${quantitaRichiesta}).toFixed(2)}">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="um" filterProperty="um" width="4rem">
+				<Label text="U.M."/>
+				<t:template>
+					<Text text="{um}">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="dataInizioEff" filterProperty="dataInizioEff" width="9rem">
+				<Label text="Data inizio eff."/>
+				<t:template>
+					<Text text="{dataInizioEff}">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="dataFineEff" filterProperty="dataFineEff" width="9rem">
+				<Label text="Data fine eff."/>
+				<t:template>
+					<Text text="{dataFineEff}">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+		</t:columns>
+	</t:Table>
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<!-- /////////////////////////////////////// TABELLA LAYOUT F /////////////////////////////////////// -->
+	<!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+	<t:Table id="tblOrdersF" rows="{path: 'operazioni', templateShareable: true}" enableSelectAll="false" alternateRowColors="true"
+		class="sapUiSizeCondensed" rowSelectionChange="onPress" selectionMode="Single" selectionBehavior="RowOnly" visibleRowCount="{rowsNumber}"
+		enableCellFilter="true" visible="{= ${layout} === 'F' ? true : false}">
+		<t:extension>
+			<core:Fragment fragmentName="it.greenorange.mes.view.headerTableF" type="XML"/>
+		</t:extension>
+		<t:columns>
+			<t:Column width="3rem">
+				<t:template>
+					<Button icon="sap-icon://display" press="getRiepilogo" type="{= ${toFix} ? 'Critical' : 'Emphasized'}" tooltip="{= ${toFix} ? 'Sospensioni da integrare' : ''}">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Button>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="dataInizioRichiesta" sorted="true" filterProperty="dataInizioRichiesta" width="8rem">
+				<Label text="Data inizio"/>
+				<t:template>
+					<Text text="{dataInizioRichiesta}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="ordine" filterProperty="ordine" width="9rem">
+				<Label text="Ordine"/>
+				<t:template>
+					<Text text="{ordine}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="articolo" filterProperty="articolo" width="10rem">
+				<Label text="Articolo"/>
+				<t:template>
+					<Text text="{articolo}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="descrizioneArticolo" filterProperty="descrizioneArticolo" width="22rem">
+				<Label text="Descrizione articolo"/>
+				<t:template>
+					<Text text="{descrizioneArticolo}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="quantitaRichiesta" filterProperty="quantitaRichiesta" width="7rem">
+				<Label text="Quantità"/>
+				<t:template>
+					<Text text="{= parseFloat(${quantitaRichiesta}).toFixed(2)}">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="um" filterProperty="um" width="4rem">
+				<Label text="U.M."/>
+				<t:template>
+					<Text text="{um}">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="statoOperazione" filterProperty="statoOperazione" width="5rem">
+				<Label text="Stato"/>
+				<t:template>
+					<Text text="{statoOperazione}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column width="6rem">
+				<Label text="Sch. Prd."/>
+				<t:template>
+					<Button icon="sap-icon://clinical-tast-tracker" press="getSchedaProdotto" class="button">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Button>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="descrizione" filterProperty="descrizione" width="18rem">
+				<Label text="Descrizione operaz."/>
+				<t:template>
+					<Text text="{descrizione}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="quantitaResiduadaVersare" filterProperty="quantitaResiduadaVersare" width="8rem">
+				<Label text="Q.tà Residua"/>
+				<t:template>
+					<Text text="{= parseFloat(${quantitaResiduadaVersare}).toFixed(2)}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="dataInizioEff" filterProperty="dataInizioEff" width="9rem">
+				<Label text="Data inizio eff."/>
+				<t:template>
+					<Text text="{dataInizioEff}">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="oraInizioEff" filterProperty="oraInizioEff" width="9rem">
+				<Label text="Ora inizio eff."/>
+				<t:template>
+					<Text text="{oraInizioEff}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="dataFineEff" filterProperty="dataFineEff" width="9rem">
+				<Label text="Data fine eff."/>
+				<t:template>
+					<Text text="{dataFineEff}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="oraFineEff" filterProperty="oraFineEff" width="9rem">
+				<Label text="Ora fine eff."/>
+				<t:template>
+					<Text text="{oraFineEff}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+			<t:Column sortProperty="operazione" filterProperty="operazione" width="6rem">
+				<Label text="Operaz."/>
+				<t:template>
+					<Text text="{operazione}" wrapping="false">
+						<customData>
+							<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+						</customData>
+					</Text>
+				</t:template>
+			</t:Column>
+		</t:columns>
+	</t:Table>
+</core:FragmentDefinition>

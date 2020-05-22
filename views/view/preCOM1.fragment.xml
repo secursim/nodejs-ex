@@ -1,0 +1,257 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:t="sap.ui.table">
+	<Dialog showHeader="false" contentWidth="60%" contentHeight="60%" escapeHandler="onExit">
+		<Page title="Iniziare operazione in {/impianto}" enableScrolling="true">
+			<ScrollContainer horizontal="true" vertical="true" focusable="true">
+				<t:Table id="tblOrders1" rows="{/operazioni}" enableSelectAll="false"
+					alternateRowColors="true" class="sapUiSizeCondensed" title="Selezionare un'operazione" editable="false" enableBusyIndicator="true"
+					rowSelectionChange="onPresspreCOM1" selectionMode="Single" selectionBehavior="RowOnly" enableCellFilter="true">
+					<t:noData>
+						<BusyIndicator class="sapUiMediumMargin"/>
+					</t:noData>
+					<t:columns>
+						<t:Column>
+							<t:template>
+								<Label text="Det."/>
+								<Button icon="sap-icon://display" press="getRiepilogo" class="button">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Button>
+							</t:template>
+						</t:Column>
+						<t:Column id="dataInizioRichiesta" sortProperty="dataInizioRichiesta" sorted="true" filterProperty="dataInizioRichiesta" width="7rem"
+							visible="true">
+							<Label text="Dt.Inizio"/>
+							<t:template>
+								<Text text="{dataInizioRichiesta}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="ordine" filterProperty="ordine" width="10rem">
+							<Label text="Ordine"/>
+							<t:template>
+								<Text text="{ordine}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="articolo" filterProperty="articolo" width="8rem">
+							<Label text="Articolo"/>
+							<t:template>
+								<Text text="{articolo}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="descrizioneArticolo" filterProperty="descrizioneArticolo" width="17rem">
+							<Label text="Descrizione Articolo"/>
+							<t:template>
+								<Text text="{descrizioneArticolo}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="quantitaRichiesta" filterProperty="quantitaRichiesta" width="4rem">
+							<Label text="Q.tà"/>
+							<t:template>
+								<Text text="{quantitaRichiesta}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="um" filterProperty="um" width="4rem">
+							<Label text="UM"/>
+							<t:template>
+								<Text text="{um}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="operazioneSuccessiva" filterProperty="operazioneSuccessiva" width="17rem">
+							<Label text="Operazione successiva"/>
+							<t:template>
+								<Text text="{operazioneSuccessiva}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="statoOperazione" filterProperty="statoOperazione" width="5rem">
+							<Label text="Stato"/>
+							<t:template>
+								<Text text="{statoOperazione}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column width="5rem">
+							<Label text="Sch.Prd."/>
+							<t:template>
+								<Button icon="sap-icon://clinical-tast-tracker" press="getSchedaProdotto" class="button">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Button>
+							</t:template>
+						</t:Column>
+						<t:Column width="5rem" visible="false">
+							<Label text="CdL"/>
+							<t:template>
+								<Text text="{centroDiLavoro}" wrapping="false"></Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="operazione" filterProperty="operazione" width="4rem">
+							<Label text="Oper."/>
+							<t:template>
+								<Text text="{operazione}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="operazioneFinale" filterProperty="operazioneFinale" width="4rem">
+							<Label text="Op.Fin."/>
+							<t:template>
+								<Text text="{operazioneFinale}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="lotto" filterProperty="lotto" width="8rem" visible="true">
+							<Label text="Lotto"/>
+							<t:template>
+								<Text text="{lotto}" wrapping="false"></Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="descrizione" filterProperty="descrizione" width="17rem">
+							<Label text="Descrizione"/>
+							<t:template>
+								<Text text="{descrizione}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="oraInizioRichiesta" filterProperty="oraInizioRichiesta" width="10rem" visible="false">
+							<Label text="Inizio richiesta"/>
+							<t:template>
+								<Text text="{oraInizioRichiesta}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="dataFineRichiesta" filterProperty="dataFineRichiesta" width="6rem">
+							<Label text="Dt.fine"/>
+							<t:template>
+								<Text text="{dataFineRichiesta}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="oraFineRichiesta" filterProperty="oraFineRichiesta" width="6rem">
+							<Label text="Ora Fine"/>
+							<t:template>
+								<Text text="{oraFineRichiesta}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="quantitaIot" filterProperty="quantitaIot" width="5rem">
+							<Label text="Q.tà IOT"/>
+							<t:template>
+								<Text text="{quantitaIot}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="allineatoS4" filterProperty="allineatoS4" width="11rem" visible="false">
+							<Label text="allineatoS4"/>
+							<t:template>
+								<Text text="{allineatoS4}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="chiaveComando" filterProperty="chiaveComando" width="11rem" visible="false">
+							<Label text="chiaveComando"/>
+							<t:template>
+								<Text text="{chiaveComando}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="completato" filterProperty="completato" width="11rem" visible="false">
+							<Label text="completato"/>
+							<t:template>
+								<Text text="{completato}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="quantitaRichiestaProdottiFiniti" filterProperty="quantitaRichiestaProdottiFiniti" width="5rem">
+							<Label text="Q.tà P.F."/>
+							<t:template>
+								<Text text="{quantitaRichiestaProdottiFiniti}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+						<t:Column sortProperty="quantitaResiduadaVersare" filterProperty="quantitaResiduadaVersare" width="5rem">
+							<Label text="Q.tà Residua"/>
+							<t:template>
+								<Text text="{quantitaResiduadaVersare}" wrapping="false">
+									<customData>
+										<core:CustomData key="background" value="{statoOperazioneEnh}" writeToDom="true"/>
+									</customData>
+								</Text>
+							</t:template>
+						</t:Column>
+					</t:columns>
+				</t:Table>
+			</ScrollContainer>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button text="Conferma" press="handleConfirmpreCOM1" class="button"/>
+					<Button text="Cancella" press="onExit" class="button"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition>

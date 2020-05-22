@@ -1,0 +1,127 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:t="sap.ui.table">
+	<Dialog showHeader="false" contentWidth="70rem" contentHeight="60%" escapeHandler="onExit">
+		<NavContainer id="navCon" class="navContainerControl sapUiSmallMarginBottom">
+			<Page id="master" title="Bancali">
+				<ScrollContainer horizontal="true" focusable="true">
+					<t:Table id="tblBancali" rows="{path: '/bancali', sorter : { path : 'idBancale', descending : false }}" enableSelectAll="false"
+						alternateRowColors="true" class="sapUiSizeCondensed" enableBusyIndicator="false" selectionMode="Single"
+						selectionBehavior="RowOnly" visibleRowCount="{= ${/bancali}.length > 12 ? 12 : ${/bancali}.length}" enableCellFilter="true"
+						showNoData="true">
+						<t:columns>
+							<t:Column width="3rem">
+								<t:template>
+									<Label text="Vers."/>
+									<Button icon="sap-icon://cause" press="onNavToVersamenti" class="button"/>
+								</t:template>
+							</t:Column>
+							<t:Column sortProperty="idBancale" filterProperty="idBancale">
+								<Label text="Bancale"/>
+								<t:template>
+									<Text text="{idBancale}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column sortProperty="dataCreazione" filterProperty="dataCreazione">
+								<Label text="Data creazione"/>
+								<t:template>
+									<Text text="{dataCreazione}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column sortProperty="qtaTot" filterProperty="qtaTot">
+								<Label text="Totale quantità"/>
+								<t:template>
+									<Text text="{qtaTot}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column sortProperty="qtaColliTot" filterProperty="qtaColliTot">
+								<Label text="Totale colli"/>
+								<t:template>
+									<Text text="{qtaColliTot}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+						</t:columns>
+					</t:Table>
+				</ScrollContainer>
+				<footer>
+					<OverflowToolbar>
+						<Button text="Tutti" press="handleBancaliAll" class="button"/>
+						<ToolbarSpacer/>
+						<Button text="Chiudi" press="onExit" class="button"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+			<Page id="detail" title="Versamenti" enableScrolling="true" showNavButton="true" navButtonPress="onNavBack">
+				<ScrollContainer horizontal="true" vertical="true" focusable="true">
+					<t:Table id="tblVersamenti"
+						rows="{path: '/versamenti', sorter : [{ path : 'data', descending : false }, {path : 'ora', descending : false}]}" enableSelectAll="false"
+						alternateRowColors="true" class="sapUiSizeCondensed" title="" editable="false" enableBusyIndicator="true"
+						selectionMode="Single" selectionBehavior="RowOnly"
+						visibleRowCount="{= ${/versamenti}.length > 12 ? 12 : ${/versamenti}.length}" enableCellFilter="true">
+						<t:noData>
+							<BusyIndicator class="sapUiMediumMargin"/>
+						</t:noData>
+						<t:columns>
+							<t:Column sortProperty="ordine" filterProperty="ordine">
+								<Label text="Ordine"/>
+								<t:template>
+									<Text text="{ordine}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column width="20rem" sortProperty="descrizioneArticolo" filterProperty="descrizioneArticolo">
+								<Label text="Descrizione articolo"/>
+								<t:template>
+									<Text text="{descrizioneArticolo}" wrapping="false"/>
+								</t:template>
+							</t:Column>
+							<t:Column sortProperty="data" filterProperty="data">
+								<Label text="Data"/>
+								<t:template>
+									<Text text="{data}" wrapping="false">
+										<customData>
+											<core:CustomData key="background" value="{statoOperazione}" writeToDom="true"/>
+										</customData>
+									</Text>
+								</t:template>
+							</t:Column>
+							<t:Column sortProperty="ora" filterProperty="ora">
+								<Label text="Ora"/>
+								<t:template>
+									<Text text="{ora}" wrapping="false">
+										<customData>
+											<core:CustomData key="background" value="{statoOperazione}" writeToDom="true"/>
+										</customData>
+									</Text>
+								</t:template>
+							</t:Column>
+							<t:Column sortProperty="quantita" filterProperty="quantita">
+								<Label text="Quantità"/>
+								<t:template>
+									<Text text="{quantita}" wrapping="false">
+										<customData>
+											<core:CustomData key="background" value="{statoOperazione}" writeToDom="true"/>
+										</customData>
+									</Text>
+								</t:template>
+							</t:Column>
+							<t:Column sortProperty="quantitaColli" filterProperty="quantitaColli">
+								<Label text="Quantità colli"/>
+								<t:template>
+									<Text text="{quantitaColli}" wrapping="false">
+										<customData>
+											<core:CustomData key="background" value="{statoOperazione}" writeToDom="true"/>
+										</customData>
+									</Text>
+								</t:template>
+							</t:Column>
+						</t:columns>
+					</t:Table>
+				</ScrollContainer>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button text="Chiudi" press="onExit" class="button"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</NavContainer>
+	</Dialog>
+</core:FragmentDefinition>

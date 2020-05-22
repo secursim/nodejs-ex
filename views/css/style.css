@@ -1,0 +1,224 @@
+/* Enter your custom styles here */
+
+.navContainerControl {
+    border-color: #949494;
+    border-style: solid;
+    border-width: 0.0625em;
+}
+
+.sapMText {
+    /*il testo deve avere un carattere maggiore*/
+    font-size: 1.1rem !important;
+}
+
+.sapUiSizeCompact .sapUiTableCell .sapMLabel,
+.sapUiSizeCondensed .sapUiTableCell .sapMLabel,
+.sapMListTbl .sapMLabel {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+
+/* custom TabContainerItem (selected) */
+
+.tabContainer .sapMTabStrip .sapMTSTabsContainer .sapMTSTabs .sapMTabStripItem.sapMTabStripItemSelected {
+    color: #fff;
+    background: #425160;
+}
+
+[data-status-snr="SOSP"] {
+    background-color: #425160;
+    color: rgb(247, 247, 247);
+}
+
+[data-background="EXEC"] {
+    background-color: #55AB00;
+    display: list-item;
+    color: #FFF;
+    border-color: #55AB00;
+    border-style: solid;
+    border-width: 0.0625em;
+}
+
+[data-background="EXET"] {
+    background-color: #949494;
+    display: list-item;
+    color: #FFF;
+    border-color: #949494;
+    border-style: solid;
+    border-width: 0.0625em;
+}
+
+[data-background="CONC"] {
+    background-color: #425160;
+    display: list-item;
+    color: #FFF;
+    border-color: #425160;
+    border-style: solid;
+    border-width: 0.0625em;
+}
+
+[data-background="WAIT"] {
+    /*il testo delle righe in gialle è da mantenere di colore default*/
+    background-color: #D6E30D;
+    display: list-item;
+    color: #333;
+    border-color: #D6E30D;
+    border-style: solid;
+    border-width: 0.0625em;
+}
+
+.inputFontSize {
+    font-size: 2rem !important;
+    color: #84A77E;
+}
+
+
+/*************** BUTTONS ***************/
+
+.button>.sapMBtnInner {
+    background-color: #425160;
+    border-color: #425160;
+    background-image: none;
+    text-shadow: none;
+    color: #FFFFFF;
+}
+
+.button>.sapMBtnHoverable:hover {
+    border-color: #9BC8F2 !important;
+    background-color: #9BC8F2 !important;
+    background-image: none;
+    color: #FFFFFF;
+}
+
+.button .sapMBtnIcon {
+    color: #FFFFFF !important;
+}
+
+.myRedButton>.sapMBtnInner {
+    background-color: #d0312a !important;
+    border-color: #d0312a !important;
+    background-image: none !important;
+    text-shadow: none !important;
+    color: #fff;
+}
+
+.myRedButton>.sapMBtnHoverable:hover {
+    border-color: #d0312a !important;
+    background-color: #A71B14 !important;
+    background-image: none;
+    color: #fff;
+}
+
+.myRedButton .sapMBtnIcon {
+    color: #FFFFFF !important;
+}
+
+.myGreenButton>.sapMBtnInner {
+    background-color: #55AB00;
+    border-color: #55AB00;
+    background-image: none;
+    text-shadow: none;
+    color: #fff;
+}
+
+.myGreenButton>.sapMBtnHoverable:hover {
+    border-color: #63C800 !important;
+    background-color: #63C800 !important;
+    background-image: none;
+    color: #fff;
+}
+
+.myGreenButton .sapMBtnIcon {
+    color: #FFFFFF !important;
+}
+
+
+/*************** BUTTONS ***************/
+
+
+/*************** GENERIC TILE***********/
+
+.myAvanzamentoTile {
+    background-color: #00AAAB;
+}
+
+.myScartoTile {
+    background-color: lightgreen;
+}
+
+.myQualitaTile {
+    background-color: yellow;
+}
+
+.myOrdineTile {
+    background-color: #B041FF;
+}
+
+.myRimozioneSospTile {
+    background-color: #ff4040;
+}
+
+.myCausaleSospTile {
+    background-color: #ff4040;
+}
+
+.myStampaTile {
+    background-color: #ff9d59;
+}
+
+.tableSelectDialogClass {
+    width: 30%;
+    height: auto !important;
+}
+
+
+/*************** gestione GENERIC TILE***********/
+
+.tileLayout {
+    width: 10rem !important;
+    height: 8rem !important;
+}
+
+.sapMGTHdrTxt>.sapMText {
+    font-size: 1rem !important;
+}
+
+.sapMImageContent {
+    height: 3rem;
+}
+
+.sapMGTSubHdrTxt>.sapMText,
+.sapMGTSubHdrTxt {
+    white-space: break-spaces;
+}
+
+
+/*******************************/
+
+.sapMGTSubHdrTxt {
+    margin-top: 0.1rem;
+}
+
+.footerBarMainView {
+    background-color: transparent;
+}
+
+
+/*modifica spessore righe tabella*/
+
+.sapUiTableCell {
+    border-bottom: 0.15rem solid #3F5161 !important;
+}
+
+.sapMLIBShowSeparator>td,
+.sapMTableTH {
+    border-bottom: 3px solid #3F5161 !important;
+}
+
+.sapUiTableCell.sapUiTableHeaderCell {
+    border-right: 0.15rem solid #3F5161 !important;
+}
+
+
+/****************/

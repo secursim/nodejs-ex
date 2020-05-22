@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" class="sapUiSizeCompact">
+	<Dialog id="txtLoginCID" contentHeight="40%" showHeader="false" escapeHandler="onExit">
+		<Page enableScrolling="true" showNavButton="false" showHeader="false">
+			<Panel id="idDL" headerText="Membri del team di {utenti>/utenti/0/cid}">
+				<FlexBox binding="{path:'utenti'}" justifyContent="SpaceBetween">
+					<Input id="idCid" width="auto" value="{utenti>/utenti/cid}" submit="onAddMemberCID" placeholder="Aggiungi utente..."/>
+					<Button type="Accept" icon="sap-icon://accept" press="onAddMemberCID" tooltip="Conferma"/>
+				</FlexBox>
+			</Panel>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button text="Conferma" press="onConfirmCID" class="button"/>
+					<Button text="Cancella" press="onExit" class="button"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition>

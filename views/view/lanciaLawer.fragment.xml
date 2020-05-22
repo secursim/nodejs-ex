@@ -1,0 +1,90 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:table="sap.ui.table"
+	class="sapUiSizeCompact" xmlns:core="sap.ui.core">
+	<Dialog showHeader="false" contentWidth="40%" contentHeight="60%" escapeHandler="onExit">
+		<Page id="master" title=" Lawer" enableScrolling=" true">
+			<l:FixFlex minFlexSize="150">
+				<l:fixContent>
+					<f:SimpleForm id="SimpleFormToolbar" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4"
+						labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
+						singleContainerFullSize="false" ariaLabelledBy="Title1">
+						<f:content>
+							<Label text="Ordine">
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</Label>
+							<Text text="{/ordine}">
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</Text>
+							<Label text="Operazione">
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</Label>
+							<Text text="{/operazione}">
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</Text>
+							<Label text="Descrizione">
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</Label>
+							<Text text="{/descrizione}"/>
+							<Label text="Quantità richiesta">
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</Label>
+							<Label text="CID">
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</Label>
+							<ComboBox id="cid" showSecondaryValues="true" items="{ path: '/cid', sorter: { path: 'cid' } }" selectedKey="{/cid/0/cid}" required="true">
+								<core:ListItem key="{cid}" text="{cid} {nome} {cognome}"/>
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</ComboBox>
+							<Label text="Componente">
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</Label>
+							<ComboBox id="componente" showSecondaryValues="true" items="{ path: '/componenti', sorter: { path: 'componenti' } }"
+								selectedKey="{/componenti/0/componente}" required="{= ${/componenti}.length > 0 ? true : false}">
+								<core:ListItem key="{componente}" text="{componente} {descrizioneComponente}"/>
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</ComboBox>
+							<Label text="Macchina">
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</Label>
+							<ComboBox id="execlawer" showSecondaryValues="true" items="{ path: '/nomiLawer', sorter: { path: 'nome' } }"
+								required="true">
+								<core:ListItem key="{nome}" text="{descrizione}"/>
+								<layoutData>
+									<l:GridData span="L2 M3 S6" indentL="0"/>
+								</layoutData>
+							</ComboBox>
+						</f:content>
+					</f:SimpleForm>
+				</l:fixContent>
+			</l:FixFlex>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button text="Conferma" press="onConfirmLanciaLawer" class="button"/>
+					<Button text="Cancella" press="onExit" class="button"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition>

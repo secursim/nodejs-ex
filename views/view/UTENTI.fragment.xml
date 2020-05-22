@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:table="sap.ui.table" class="sapUiSizeCompact">
+	<Dialog showHeader="false" initialFocus="idInputUser" busyIndicatorDelay="0">
+		<List headerText="{= 'Utenti (' + ${usersModel>/}.length + ')'}" id="idList"
+			items="{ path: 'usersModel>/', sorter: { path: 'cid', descending: false } }" class="sapUiSizeCompact">
+			<StandardListItem title="{usersModel>cid}" description="{usersModel>nome} {usersModel>cognome}"
+				icon="{= ${usersModel>teamLeader} ? 'sap-icon://leads' : 'sap-icon://employee'}" iconDensityAware="false" iconInset="false"/>
+		</List>
+		<FlexBox visible="{/isTeamLeader}" class="sapUiTinyMargin" justifyContent="SpaceBetween">
+			<Input id="idInputUser" value="{/inputValue}" submit="onConfirmUserPress" placeholder="Aggiungi utente..."/>
+			<Button type="Accept" icon="sap-icon://accept" press="onConfirmUserPress" tooltip="Conferma" class="sapUiTinyMarginEnd sapUiTinyMarginBegin"/>
+		</FlexBox>
+		<Page>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button text="Chiudi" press="onCloseUserPress"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition>

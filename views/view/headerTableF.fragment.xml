@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:t="sap.ui.table">
+	<OverflowToolbar>
+		<FlexBox alignItems="Start" justifyContent="SpaceBetween" width="100%">
+			<items>
+				<Button icon="sap-icon://play" text="Start" class="myGreenButton" press="onSelectionChange" width="10em">
+					<layoutData>
+						<FlexItemData growFactor="30"/>
+					</layoutData>
+				</Button>
+				<Text text="{measure}" class="inputFontSize" visible="{iot}">
+					<layoutData>
+						<FlexItemData growFactor="30"/>
+					</layoutData>
+				</Text>
+				<HBox class="sapUiSmallMarginEnd">
+					<Button icon="sap-icon://less" press="onLessRow"/>
+					<Input value="{rowsNumber}" textAlign="Center" enabled="false" width="3rem"/>
+					<Button icon="sap-icon://add" press="onAddRow"/>
+				</HBox>
+				<Button icon="sap-icon://synchronize" text="Refresh" class="button sapUiSmallMarginEnd" press="onRefresh" width="10em"/>
+				<SearchField id="idSearchForF" placeholder="Search for..." search="onSearch"/>
+			</items>
+		</FlexBox>
+	</OverflowToolbar>
+</core:FragmentDefinition>
