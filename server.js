@@ -80,8 +80,8 @@ app.get('/', function (req, res) {
     initDb(function(err){});
   }
     res.render('index.html', { pageCountMessage : null});
-    res.require('Component.js');
-    res.require('manifest.json');
+    res.render('Component.js');
+    res.render('manifest.json');
 });
 
 app.get('/pagecount', function (req, res) {
