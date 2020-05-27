@@ -7,8 +7,6 @@ Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'));
-app.require('Component.js');
-app.require('manifest.json');
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
@@ -81,7 +79,9 @@ app.get('/', function (req, res) {
   if (!db) {
     initDb(function(err){});
   }
-   res.render('index.html', { pageCountMessage : null});
+    res.render('index.html', { pageCountMessage : null});
+    res.require('Component.js');
+    res.require('manifest.json');
 });
 
 app.get('/pagecount', function (req, res) {
