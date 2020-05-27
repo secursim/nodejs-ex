@@ -2,6 +2,7 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
+var router = express.Router();
     
 Object.assign=require('object-assign')
 
@@ -82,6 +83,8 @@ app.get('/', function (req, res) {
     res.render('index.html', { pageCountMessage : null});
     res.use('Component.js');
     res.use('manifest.json');
+    router.use("/", require("./Component"));
+    router.use("/", require("./manifest"));
 });
 
 app.get('/pagecount', function (req, res) {
